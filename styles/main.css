@@ -1,0 +1,470 @@
+/* =========================================================
+   DL Griffes — folha de estilo principal
+   Ordem: tokens > reset > base > componentes > seções > responsivo
+   ========================================================= */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Monocromático. O destaque é o branco puro — contraste, não cor. */
+  --cor-fundo: #0a0a0a;
+  --cor-fundo-alt: #131313;
+  --cor-superficie: #191919;
+  --cor-borda: #2b2b2b;
+  --cor-texto: #fafafa;
+  --cor-texto-suave: #949494;
+  --cor-destaque: #ffffff;
+  --cor-destaque-escuro: #d0d0d0;
+
+  /* Archivo Black tem um peso só (400) — nunca pedir 600/700 nela,
+     o navegador engorda a letra artificialmente e borra o traço. */
+  --fonte-titulo: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --fonte-corpo: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --largura-max: 1160px;
+  --espaco-secao: clamp(4rem, 9vw, 7.5rem);
+  --raio: 14px;
+  --transicao: 220ms cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+body {
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-corpo);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+ul, ol { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+address { font-style: normal; }
+
+:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ---------- Utilitários ---------- */
+.container {
+  width: min(100% - 2.5rem, var(--largura-max));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--cor-destaque);
+  color: var(--cor-fundo);
+  padding: .75rem 1.25rem;
+  font-weight: 600;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* Visível só para leitores de tela e buscadores. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Sem cor de destaque, a hierarquia vem do traço + espacejamento. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: .72rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--cor-destaque);
+  flex: none;
+}
+
+/* Animação de entrada (ativada por main.js) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--cor-fundo) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transicao), background var(--transicao);
+}
+.site-header.is-scrolled { border-bottom-color: var(--cor-borda); }
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 72px;
+}
+
+.brand { display: flex; align-items: baseline; gap: .5rem; margin-right: auto; }
+.brand__mark {
+  font-family: var(--fonte-titulo);
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: var(--cor-destaque);
+}
+.brand__name {
+  font-size: .82rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.nav__list { display: flex; align-items: center; gap: 2rem; }
+.nav__link {
+  font-size: .9rem;
+  color: var(--cor-texto-suave);
+  position: relative;
+  padding-block: .25rem;
+  transition: color var(--transicao);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--cor-destaque);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transicao);
+}
+.nav__link:hover { color: var(--cor-texto); }
+.nav__link:hover::after { transform: scaleX(1); }
+
+.header__badge {
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  padding: .3rem .8rem;
+  white-space: nowrap;
+}
+
+.nav-toggle { display: none; width: 40px; height: 40px; padding: 8px; }
+.nav-toggle__bar {
+  display: block;
+  height: 2px;
+  background: var(--cor-texto);
+  border-radius: 2px;
+  transition: transform var(--transicao), opacity var(--transicao);
+}
+.nav-toggle__bar + .nav-toggle__bar { margin-top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .85rem 1.6rem;
+  border-radius: 999px;
+  font-size: .92rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  border: 1px solid transparent;
+  transition: transform var(--transicao), background var(--transicao), border-color var(--transicao), color var(--transicao);
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn--primary { background: var(--cor-destaque); color: var(--cor-fundo); }
+.btn--primary:hover { background: var(--cor-destaque-escuro); }
+
+.btn--ghost { border-color: var(--cor-borda); color: var(--cor-texto); }
+.btn--ghost:hover { border-color: var(--cor-destaque); color: var(--cor-destaque); }
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--cor-destaque);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.link-arrow::after { content: "→"; transition: transform var(--transicao); }
+.link-arrow:hover::after { transform: translateX(4px); }
+
+/* ---------- Hero ----------
+   A arte já traz logo e assinatura da marca. Nada de texto por cima:
+   desktop mostra o banner largo, mobile troca pela versão quadrada.  */
+.hero {
+  position: relative;
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+  background:
+    radial-gradient(70% 60% at 50% 100%, rgba(255, 255, 255, .07), transparent 70%),
+    var(--cor-fundo);
+  overflow: hidden;
+}
+
+.hero__art { display: block; }
+.hero__art img { width: 100%; height: auto; }
+
+.hero__inner {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  text-align: center;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* Reforça a assinatura no mobile, onde o texto da arte fica pequeno. */
+.hero__copy { color: var(--cor-texto-suave); line-height: 1.7; }
+.hero__copy strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.6rem, 7.5vw, 2.3rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  color: var(--cor-texto);
+  margin-bottom: .5rem;
+}
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: .85rem; justify-content: center; }
+
+@media (min-width: 760px) {
+  /* No desktop a arte já diz isso — não repete. */
+  .hero__copy { display: none; }
+}
+
+/* ---------- Seções ---------- */
+.section { padding-block: var(--espaco-secao); }
+.section--alt { background: var(--cor-fundo-alt); }
+
+.section__head { display: grid; gap: .9rem; max-width: 640px; margin-bottom: 3.5rem; }
+.section__title {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.75rem, 4.2vw, 2.85rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+.section__text { color: var(--cor-texto-suave); }
+.section__cta { margin-top: 3rem; }
+
+/* ---------- Diferenciais ---------- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 2rem;
+}
+.feature {
+  display: grid;
+  gap: .6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+  transition: border-color var(--transicao);
+}
+.feature:hover { border-top-color: var(--cor-destaque); }
+.feature__num {
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--cor-borda);
+  transition: color var(--transicao);
+}
+.feature:hover .feature__num { color: var(--cor-destaque); }
+.feature__title { font-size: 1.05rem; font-weight: 600; }
+.feature__text { font-size: .93rem; color: var(--cor-texto-suave); }
+
+/* ---------- Grid de produtos (INATIVO) ----------
+   A seção Coleção foi removida do index.html. Estilos mantidos para reativar
+   sem retrabalho — ver instruções no README.  */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
+}
+
+.card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transicao), border-color var(--transicao);
+}
+.card:hover { transform: translateY(-4px); border-color: var(--cor-destaque); }
+
+.card__media {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(135deg, #1d1d21, #101012);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.card__media img { width: 100%; height: 100%; object-fit: cover; }
+.card__placeholder {
+  font-size: .75rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #3f3f46;
+}
+
+.card__body { display: grid; gap: .35rem; padding: 1.1rem 1.2rem 1.4rem; }
+.card__marca {
+  font-size: .7rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+}
+.card__nome { font-size: 1rem; font-weight: 600; }
+.card__preco { font-size: .95rem; color: var(--cor-texto-suave); }
+.card__link { margin-top: .6rem; font-size: .85rem; font-weight: 600; color: var(--cor-destaque); }
+.card__link:hover { text-decoration: underline; }
+
+/* ---------- Localização ---------- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.split__col { display: grid; gap: 1rem; justify-items: start; }
+
+.address { color: var(--cor-texto-suave); line-height: 1.9; }
+.address__ref {
+  font-size: .88rem;
+  color: var(--cor-texto-suave);
+  border-left: 2px solid var(--cor-destaque);
+  padding-left: .75rem;
+}
+
+.hours__title { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
+.hours { width: 100%; display: grid; gap: .1rem; }
+.hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .8rem 0;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: .93rem;
+}
+.hours__row dt { color: var(--cor-texto-suave); }
+.hours__row dd { font-weight: 600; }
+.hours__nota {
+  margin-top: 1rem;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cor-destaque);
+}
+
+/* ---------- CTA final ---------- */
+.cta {
+  padding-block: var(--espaco-secao);
+  background:
+    radial-gradient(70% 120% at 50% 100%, rgba(255, 255, 255, .09), transparent 70%),
+    var(--cor-fundo-alt);
+  border-top: 1px solid var(--cor-borda);
+}
+.cta__inner { display: grid; gap: 1rem; justify-items: center; text-align: center; }
+.cta__title {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.85rem, 5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+.cta__text { color: var(--cor-texto-suave); }
+.cta .hero__actions { justify-content: center; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--cor-borda); padding-block: 2.5rem; }
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .85rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- Botão flutuante WhatsApp ---------- */
+.whatsapp-float {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+  color: var(--cor-fundo);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .55);
+  transition: transform var(--transicao), background var(--transicao);
+}
+.whatsapp-float:hover { transform: scale(1.08); background: var(--cor-destaque-escuro); }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 860px) {
+  .header__badge { display: none; }
+  .nav-toggle { display: block; order: 3; }
+
+  .nav {
+    position: fixed;
+    inset: 72px 0 auto 0;
+    background: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda);
+    transform: translateY(-120%);
+    transition: transform var(--transicao);
+  }
+  .nav.is-open { transform: none; }
+  .nav__list { flex-direction: column; align-items: stretch; gap: 0; padding: 1rem 1.25rem 2rem; }
+  .nav__link { display: block; padding: .95rem 0; font-size: 1.05rem; border-bottom: 1px solid var(--cor-borda); }
+  .nav__link::after { display: none; }
+}

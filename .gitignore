@@ -1,0 +1,16 @@
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Node (caso um dia entre build)
+node_modules/
+
+# Ferramentas do assistente de código — não fazem parte do site
+.agents/
+.claude/
+skills-lock.json
