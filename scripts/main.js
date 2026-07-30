@@ -14,7 +14,9 @@ const LOJA = {
   whatsappNumero: '5583993023719',
 
   telefoneExibicao: '(83) 99302-3719',
-  mensagemPadrao: 'Fala! Vim pelo site. Queria ver o que tem disponível no meu manequim.',
+  // Texto que já vem digitado ao abrir a conversa. Curto de propósito:
+  // mensagem longa demais o cliente apaga antes de enviar.
+  mensagemPadrao: 'Olá! Vim pelo site e gostaria de mais informações.',
   instagram: 'https://www.instagram.com/dl_.griffes/',
   endereco: 'Rua Deputado Plínio Salgado, 222 - Mangabeira, João Pessoa - PB',
   referencia: 'Ao lado do Mercado Público de Mangabeira',
