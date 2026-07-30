@@ -56,7 +56,9 @@ Nada de texto sobreposto na imagem.
    fundo transparente, só o letreiro.
 
 2. **`assets/images/loja/og-cover.jpg`** — miniatura ao compartilhar o link (1200×630).
-   Já referenciada no `<head>`; sem o arquivo, o compartilhamento fica sem imagem.
+   Já referenciada no `<head>` com URL absoluta; falta só o arquivo. Sem ela o link
+   colado no WhatsApp aparece sem imagem — e é assim que este site vai circular.
+   Pode ser um recorte da `hero.png` no tamanho certo.
 
 3. **Grafia da marca** — o letreiro da fachada escreve `DL GRIFES`, com um F. O site e o
    Instagram usam `Griffes`. Definir qual vale e padronizar.
@@ -84,6 +86,22 @@ npx serve .
 
 Neste Windows o `python` é só o atalho da Microsoft Store, não serve.
 
-## Deploy
+## Publicação
 
-Arrastar a pasta para o Netlify, ou conectar o repositório. Não tem etapa de build — publish directory é a raiz.
+No ar em **https://l-g99921.github.io/dl-griffes/** — GitHub Pages, branch `main`, raiz do
+repositório. Sem etapa de build: `git push` na `main` republica sozinho em ~1 minuto.
+
+### Nome de arquivo importa
+
+O Pages roda em Linux, que diferencia maiúscula de minúscula. Windows não. Então
+`Hero.png` e `hero.png` são o mesmo arquivo aqui e arquivos diferentes lá — dá pra
+quebrar a imagem no ar sem perceber nada localmente.
+
+Regra: **nome de arquivo sempre minúsculo, sem espaço e sem acento.**
+
+### Domínio próprio
+
+Comprando um domínio, é grátis apontar pra cá e o HTTPS sai automático. Precisa de dois
+passos: criar o arquivo `CNAME` na raiz com o domínio dentro, e apontar o DNS pro GitHub.
+Ao fazer isso, trocar as URLs absolutas de `og:url` e `og:image` no `<head>` do
+`index.html` — elas estão fixas no endereço do Pages.
