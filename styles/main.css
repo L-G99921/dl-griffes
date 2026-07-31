@@ -106,13 +106,15 @@ address { font-style: normal; }
   flex: none;
 }
 
-/* Animação de entrada (ativada por main.js) */
-[data-reveal] {
+/* Animação de entrada (ativada por main.js).
+   Depende da classe .js no <html>: sem JavaScript, ou se o script quebrar,
+   nada fica escondido. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 700ms ease, transform 700ms ease;
 }
-[data-reveal].is-visible { opacity: 1; transform: none; }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
 
 /* ---------- Header ---------- */
 .site-header {

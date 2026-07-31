@@ -2,6 +2,11 @@
    DL Griffes — script principal
    ========================================================= */
 
+/* Marca que o JavaScript rodou. O CSS só esconde o conteúdo da animação de
+   entrada quando esta classe existe — se o script quebrar, o site aparece
+   inteiro em vez de ficar em branco. */
+document.documentElement.classList.add('js');
+
 /* ---------- Configuração da loja (editar aqui) ---------- */
 const LOJA = {
   nome: 'DL Griffes',
@@ -162,7 +167,7 @@ function renderizarDestaques() {
     const carregamento = indice < 2 ? 'eager' : 'lazy';
 
     return `
-      <li class="destaque">
+      <li class="destaque" data-reveal>
         <a class="destaque__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener"
            aria-label="Perguntar no WhatsApp sobre ${item.titulo}, ${preco}">
           <img class="destaque__img" src="assets/images/destaques/${item.arquivo}"
@@ -220,13 +225,16 @@ function iniciarReveal() {
     return;
   }
 
+  // threshold 0: basta um pixel entrar na tela. Com valor maior, elemento mais
+  // alto que a tela nunca atinge a fração exigida e fica invisível para sempre —
+  // foi o que aconteceu com o grid de destaques em coluna única no celular.
   const observador = new IntersectionObserver((entradas) => {
     entradas.forEach((entrada) => {
       if (!entrada.isIntersecting) return;
       entrada.target.classList.add('is-visible');
       observador.unobserve(entrada.target);
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 
   alvos.forEach((alvo) => observador.observe(alvo));
 }

@@ -24,7 +24,7 @@
   <!-- O ?v= força o navegador a baixar de novo. Subir o número a cada mudança
        em main.css ou main.js, senão o visitante fica até 10 minutos vendo a
        versão antiga (Cache-Control do GitHub Pages é max-age=600). -->
-  <link rel="stylesheet" href="styles/main.css?v=2">
+  <link rel="stylesheet" href="styles/main.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -132,8 +132,10 @@
           </p>
         </header>
 
-        <!-- Grid preenchido por scripts/main.js a partir de DESTAQUES -->
-        <ul class="destaques" id="grid-destaques" data-reveal></ul>
+        <!-- Grid preenchido por scripts/main.js a partir de DESTAQUES.
+             O data-reveal vai em cada card, não no grid: em coluna única o grid
+             fica mais alto que a tela e a animação nunca dispararia. -->
+        <ul class="destaques" id="grid-destaques"></ul>
 
         <p class="destaques__nota" data-reveal>Todos os óculos saem com caixa, case e lenço.</p>
       </div>
@@ -193,6 +195,6 @@
     </svg>
   </a>
 
-  <script src="scripts/main.js?v=2"></script>
+  <script src="scripts/main.js?v=3"></script>
 </body>
 </html>
