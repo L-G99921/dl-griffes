@@ -71,8 +71,12 @@ por último — do ticket maior para o menor.
 | Kit normal (camiseta + short) | R$ 199,99 |
 | Camiseta avulsa | R$ 99,99 |
 | Crocs | R$ 99,99 |
+| Lupa | R$ 89,99 |
+| Gascan | R$ 89,99 |
 | Boné Lacoste | R$ 69,99 |
-| Óculos | **a definir** |
+| Combo boné + lupa + camiseta | **a definir** |
+
+Toda lupa acompanha caixa, case e lenço — informado abaixo do grid de destaques.
 
 ## Já preenchido
 

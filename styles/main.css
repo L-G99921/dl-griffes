@@ -367,6 +367,14 @@ address { font-style: normal; }
   line-height: 1.25;
   color: #fff;
 }
+.destaques__nota {
+  margin-top: 1.75rem;
+  padding-left: .9rem;
+  border-left: 2px solid var(--cor-destaque);
+  font-size: .88rem;
+  color: var(--cor-texto-suave);
+}
+
 .destaque__preco {
   font-family: var(--fonte-titulo);
   font-weight: 400;

@@ -79,6 +79,20 @@ const DESTAQUES = [
     alt: 'Duas camisetas com logo em degradê listrado, uma preta e uma azul-marinho',
   },
   {
+    arquivo: 'lupas-coloridas.jpg',
+    tipo: 'Lupa',
+    titulo: 'Lupa lente colorida',
+    preco: 'R$ 89,99',
+    alt: 'Sete lupas com lentes espelhadas em vermelho, azul, preto, prata e roxo',
+  },
+  {
+    arquivo: 'oculos-gascan-preto.jpg',
+    tipo: 'Óculos',
+    titulo: 'Gascan preto polarizado',
+    preco: 'R$ 89,99',
+    alt: 'Três óculos Gascan pretos com lente polarizada',
+  },
+  {
     arquivo: 'crocs-branco.jpg',
     tipo: 'Chinelo',
     titulo: 'Crocs branco',
@@ -93,12 +107,14 @@ const DESTAQUES = [
     alt: 'Quatro bonés Lacoste nas cores azul-claro, branco, azul-marinho e preto',
   },
   {
-    // TODO: falta o preço do óculos. Enquanto vazio, o card mostra "Consultar valor".
+    // TODO: falta o valor fechado do combo. As três peças têm preço avulso
+    // (69,99 + 89,99 + 99,99), mas ninguém definiu o preço do conjunto.
+    // Enquanto vazio, o card mostra "Consultar valor".
     arquivo: 'bone-oculos-camiseta.jpg',
     tipo: 'Combo',
-    titulo: 'Boné, óculos e camiseta',
+    titulo: 'Boné, lupa e camiseta',
     preco: '',
-    alt: 'Boné branco, óculos de sol prateado e camiseta preta com logo repetido',
+    alt: 'Boné branco, lupa prateada e camiseta preta com logo repetido',
   },
 ];
 
