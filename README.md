@@ -8,9 +8,9 @@ Site estático (HTML + CSS + JS puro). Sem build, sem dependência. Abrir `index
 index.html                     # página única
 styles/main.css                # tokens, componentes, responsivo
 scripts/main.js                # config da loja, menu, animações
-assets/images/loja/Hero.png    # arte do topo (desktop)
-assets/images/loja/Logo.png    # arte do topo (mobile)
-assets/images/produtos/        # vazio — só se reativar a Coleção
+assets/images/loja/hero.png    # arte do topo (desktop)
+assets/images/loja/logo.png    # arte do topo (mobile)
+assets/images/destaques/       # fotos da vitrine de destaques
 ```
 
 ## Identidade visual
@@ -35,11 +35,20 @@ Alternativas que combinam com a marca: **Anton** (mais condensada, pegada street
 
 ## Seções
 
-Hero (arte) → A marca (4 diferenciais) → Localização + horário → CTA final → footer.
+Hero (arte) → A marca (4 diferenciais) → Destaques → Localização + horário → CTA final → footer.
 
-O hero usa `<picture>`: `Hero.png` acima de 760px, `Logo.png` abaixo. Como a arte já traz
+O hero usa `<picture>`: `hero.png` acima de 760px, `logo.png` abaixo. Como a arte já traz
 logo e assinatura, o `<h1>` fica em `.sr-only` — só leitores de tela e buscadores leem.
 Nada de texto sobreposto na imagem.
+
+### Destaques
+
+Vitrine solta, sem preço e sem controle de estoque — só mostra o que roda na loja. Tocar
+numa foto abre o WhatsApp com o nome do destaque já na mensagem.
+
+Para trocar as fotos: joga o arquivo em `assets/images/destaques/` (nome minúsculo, sem
+espaço e sem acento) e ajusta o array `DESTAQUES` no topo de `scripts/main.js`. Cada item
+tem `arquivo`, `titulo` e `alt`. Formato ideal: retrato 3:4, ~900×1200, até 400 KB.
 
 ## Já preenchido
 
@@ -65,16 +74,9 @@ Nada de texto sobreposto na imagem.
 
 ## Coleção — removida
 
-A seção de catálogo saiu do `index.html` a pedido. O Instagram faz esse papel.
-
-O código dela ficou no lugar, marcado `INATIVO`, para reativar sem retrabalho:
-
-- `scripts/main.js` — array `PRODUTOS` e função `renderizarProdutos()` (a função já sai
-  sem fazer nada quando não encontra o grid, então não quebra nada estando lá)
-- `styles/main.css` — bloco `.grid` / `.card`
-
-Para trazer de volta: recolocar no `index.html` a seção com
-`<ul class="grid" id="grid-produtos"></ul>`, o link `Coleção` no menu, e preencher `PRODUTOS`.
+A seção de catálogo com preço saiu a pedido, e os Destaques ocuparam o lugar dela. O código
+inativo (`PRODUTOS`, `renderizarProdutos()`, estilos `.grid` / `.card`) foi apagado de vez —
+está no histórico do git, em `git log -- scripts/main.js`, se um dia precisar voltar.
 
 ## Rodar localmente
 

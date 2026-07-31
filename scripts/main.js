@@ -22,20 +22,45 @@ const LOJA = {
   referencia: 'Ao lado do Mercado Público de Mangabeira',
 };
 
-/* ---------- Catálogo (INATIVO) ----------
-   A seção Coleção saiu do index.html, então este array não é usado hoje —
-   renderizarProdutos() não encontra o grid e sai sem fazer nada.
-   Para reativar, ver README. Enquanto isso o Instagram é a vitrine.
+/* ---------- Destaques (editar aqui) ----------
+   Vitrine solta, sem preço e sem estoque — só mostra o que roda na loja.
+   Para trocar: joga a foto em assets/images/destaques/ (minúsculo, sem espaço
+   e sem acento) e ajusta a linha aqui.
 
-   imagem: caminho em assets/images/produtos/ ou '' para usar o placeholder.
-   Exemplo: 'assets/images/produtos/polo-preta.jpg'                   */
-const PRODUTOS = [
-  { marca: 'Grife', nome: 'Camisa polo clássica', preco: 'R$ 000,00', imagem: '' },
-  { marca: 'Grife', nome: 'Camiseta oversized',   preco: 'R$ 000,00', imagem: '' },
-  { marca: 'Grife', nome: 'Bermuda sarja',        preco: 'R$ 000,00', imagem: '' },
-  { marca: 'Grife', nome: 'Conjunto moletom',     preco: 'R$ 000,00', imagem: '' },
-  { marca: 'Grife', nome: 'Boné aba curva',       preco: 'R$ 000,00', imagem: '' },
-  { marca: 'Grife', nome: 'Tênis casual',         preco: 'R$ 000,00', imagem: '' },
+   arquivo  nome do arquivo dentro de assets/images/destaques/
+   titulo   aparece sobre a foto e entra na mensagem do WhatsApp
+   alt      descrição para leitor de tela e para quando a imagem não carrega  */
+const DESTAQUES = [
+  {
+    arquivo: 'conjunto-polo-bermuda-marinho.jpg',
+    titulo: 'Conjunto polo e bermuda',
+    alt: 'Polo azul-marinho com estampa geométrica clara, bermuda marinho, boné branco e Crocs',
+  },
+  {
+    arquivo: 'polo-bermuda-azul.jpg',
+    titulo: 'Polo preta com bermuda azul',
+    alt: 'Polo preta com faixas azuis e brancas, bermuda azul, boné branco e chinelo Crocs',
+  },
+  {
+    arquivo: 'camisetas-faixa-peito.jpg',
+    titulo: 'Camisetas com faixa no peito',
+    alt: 'Três camisetas com faixa horizontal no peito: preta, azul-marinho e off-white',
+  },
+  {
+    arquivo: 'camisetas-crocodilo.jpg',
+    titulo: 'Camisetas de crocodilo grande',
+    alt: 'Camiseta preta com crocodilo verde-oliva e camiseta off-white com crocodilo preto',
+  },
+  {
+    arquivo: 'camisetas-estampa-listrada.jpg',
+    titulo: 'Camisetas de estampa listrada',
+    alt: 'Duas camisetas com logo em degradê listrado, uma preta e uma azul-marinho',
+  },
+  {
+    arquivo: 'bone-oculos-camiseta.jpg',
+    titulo: 'Boné, óculos e camiseta',
+    alt: 'Boné branco, óculos de sol prateado e camiseta preta com logo repetido',
+  },
 ];
 
 /* ---------- Helpers ---------- */
@@ -65,27 +90,27 @@ function montarLinks() {
   });
 }
 
-/* ---------- Catálogo ---------- */
-function renderizarProdutos() {
-  const grid = document.getElementById('grid-produtos');
+/* ---------- Destaques ---------- */
+function renderizarDestaques() {
+  const grid = document.getElementById('grid-destaques');
   if (!grid) return;
 
-  grid.innerHTML = PRODUTOS.map((produto) => {
-    const media = produto.imagem
-      ? `<img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">`
-      : `<span class="card__placeholder">Foto em breve</span>`;
+  grid.innerHTML = DESTAQUES.map((item, indice) => {
+    const mensagem = `Olá! Vi no site o destaque "${item.titulo}". Ainda tem disponível?`;
 
-    const mensagem = `Olá! Tenho interesse na peça: ${produto.nome} (${produto.marca}).`;
+    // As duas primeiras carregam junto com a página; o resto só ao rolar até lá.
+    const carregamento = indice < 2 ? 'eager' : 'lazy';
 
     return `
-      <li class="card">
-        <div class="card__media">${media}</div>
-        <div class="card__body">
-          <span class="card__marca">${produto.marca}</span>
-          <h3 class="card__nome">${produto.nome}</h3>
-          <p class="card__preco">${produto.preco}</p>
-          <a class="card__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener">Consultar no WhatsApp</a>
-        </div>
+      <li class="destaque">
+        <a class="destaque__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener">
+          <img class="destaque__img" src="assets/images/destaques/${item.arquivo}"
+               alt="${item.alt}" loading="${carregamento}" decoding="async">
+          <span class="destaque__info">
+            <span class="destaque__titulo">${item.titulo}</span>
+            <span class="destaque__acao">Perguntar no WhatsApp</span>
+          </span>
+        </a>
       </li>`;
   }).join('');
 }
@@ -146,7 +171,7 @@ function iniciarReveal() {
 
 /* ---------- Boot ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-  renderizarProdutos();
+  renderizarDestaques();
   montarLinks();
   iniciarMenu();
   iniciarHeaderScroll();
