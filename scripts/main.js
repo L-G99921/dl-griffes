@@ -101,15 +101,14 @@ function renderizarDestaques() {
     // As duas primeiras carregam junto com a página; o resto só ao rolar até lá.
     const carregamento = indice < 2 ? 'eager' : 'lazy';
 
+    // Só a foto aparece. O título continua vivo no aria-label e na mensagem
+    // do WhatsApp — é o que diz à loja qual peça o cliente viu.
     return `
       <li class="destaque">
-        <a class="destaque__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener">
+        <a class="destaque__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener"
+           aria-label="Perguntar no WhatsApp sobre: ${item.titulo}">
           <img class="destaque__img" src="assets/images/destaques/${item.arquivo}"
                alt="${item.alt}" loading="${carregamento}" decoding="async">
-          <span class="destaque__info">
-            <span class="destaque__titulo">${item.titulo}</span>
-            <span class="destaque__acao">Perguntar no WhatsApp</span>
-          </span>
         </a>
       </li>`;
   }).join('');
