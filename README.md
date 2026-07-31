@@ -121,6 +121,21 @@ Neste Windows o `python` é só o atalho da Microsoft Store, não serve.
 No ar em **https://l-g99921.github.io/dl-griffes/** — GitHub Pages, branch `main`, raiz do
 repositório. Sem etapa de build: `git push` na `main` republica sozinho em ~1 minuto.
 
+### Mudou o CSS ou o JS? Sobe o `?v=`
+
+No `index.html`, o CSS e o JS são carregados com `?v=2` no fim do caminho. O GitHub Pages
+serve esses arquivos com `Cache-Control: max-age=600`, então sem isso o visitante continua
+vendo a versão antiga por até 10 minutos — inclusive você, testando.
+
+Mudou `styles/main.css` ou `scripts/main.js`? Sobe o número nas duas linhas. Trocar só
+imagem ou texto do HTML não precisa.
+
+Para conferir se o que está no ar é a versão nova, sem depender do cache do navegador:
+
+```
+curl -s https://l-g99921.github.io/dl-griffes/scripts/main.js | grep "nome-do-arquivo-novo"
+```
+
 ### Nome de arquivo importa
 
 O Pages roda em Linux, que diferencia maiúscula de minúscula. Windows não. Então
