@@ -74,9 +74,9 @@ por último — do ticket maior para o menor.
 | Lupa | R$ 89,99 |
 | Gascan | R$ 89,99 |
 | Boné Lacoste | R$ 69,99 |
-| Combo boné + lupa + camiseta | **a definir** |
+| Combo boné + lupa + camiseta | sem valor fechado, mostra "Consultar valor" |
 
-Toda lupa acompanha caixa, case e lenço — informado abaixo do grid de destaques.
+Todo óculos acompanha caixa, case e lenço — informado abaixo do grid de destaques.
 
 ## Já preenchido
 
