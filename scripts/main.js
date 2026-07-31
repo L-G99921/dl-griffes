@@ -23,42 +23,81 @@ const LOJA = {
 };
 
 /* ---------- Destaques (editar aqui) ----------
-   Vitrine solta, sem preço e sem estoque — só mostra o que roda na loja.
+   Vitrine com preço, sem carrinho: a venda continua fechando pelo WhatsApp.
    Para trocar: joga a foto em assets/images/destaques/ (minúsculo, sem espaço
    e sem acento) e ajusta a linha aqui.
 
    arquivo  nome do arquivo dentro de assets/images/destaques/
+   tipo     etiqueta curta acima do título (Kit, Camiseta, Boné, Chinelo)
    titulo   aparece sobre a foto e entra na mensagem do WhatsApp
-   alt      descrição para leitor de tela e para quando a imagem não carrega  */
+   preco    texto livre. Deixando vazio, o site mostra "Consultar valor"
+   alt      descrição para leitor de tela e para quando a imagem não carrega
+
+   Ordem importa: é a ordem que aparece na tela. Kits primeiro, depois peça
+   avulsa, acessório por último.                                            */
 const DESTAQUES = [
   {
-    arquivo: 'conjunto-polo-bermuda-marinho.jpg',
-    titulo: 'Conjunto polo e bermuda',
-    alt: 'Polo azul-marinho com estampa geométrica clara, bermuda marinho, boné branco e Crocs',
+    arquivo: 'kit-polo-marinho.jpg',
+    tipo: 'Kit polo',
+    titulo: 'Kit polo marinho',
+    preco: 'R$ 220,00',
+    alt: 'Polo azul-marinho com estampa geométrica clara e bermuda marinho combinando',
   },
   {
-    arquivo: 'polo-bermuda-azul.jpg',
-    titulo: 'Polo preta com bermuda azul',
-    alt: 'Polo preta com faixas azuis e brancas, bermuda azul, boné branco e chinelo Crocs',
+    arquivo: 'kit-polo-preta-azul.jpg',
+    tipo: 'Kit polo',
+    titulo: 'Kit polo preta e azul',
+    preco: 'R$ 220,00',
+    alt: 'Polo preta com faixas azuis e brancas ao lado de bermuda azul-royal',
+  },
+  {
+    arquivo: 'kit-camiseta-short.jpg',
+    tipo: 'Kit',
+    titulo: 'Kit camiseta e short',
+    preco: 'R$ 199,99',
+    alt: 'Camiseta preta com faixa azul e amarela no peito ao lado de short preto com faixa lateral',
   },
   {
     arquivo: 'camisetas-faixa-peito.jpg',
-    titulo: 'Camisetas com faixa no peito',
+    tipo: 'Camiseta',
+    titulo: 'Camiseta com faixa no peito',
+    preco: 'R$ 99,99',
     alt: 'Três camisetas com faixa horizontal no peito: preta, azul-marinho e off-white',
   },
   {
     arquivo: 'camisetas-crocodilo.jpg',
-    titulo: 'Camisetas de crocodilo grande',
+    tipo: 'Camiseta',
+    titulo: 'Camiseta de crocodilo grande',
+    preco: 'R$ 99,99',
     alt: 'Camiseta preta com crocodilo verde-oliva e camiseta off-white com crocodilo preto',
   },
   {
-    arquivo: 'camisetas-estampa-listrada.jpg',
-    titulo: 'Camisetas de estampa listrada',
+    arquivo: 'camisetas-logo-listrado.jpg',
+    tipo: 'Camiseta',
+    titulo: 'Camiseta de logo listrado',
+    preco: 'R$ 99,99',
     alt: 'Duas camisetas com logo em degradê listrado, uma preta e uma azul-marinho',
   },
   {
+    arquivo: 'crocs-branco.jpg',
+    tipo: 'Chinelo',
+    titulo: 'Crocs branco',
+    preco: 'R$ 99,99',
+    alt: 'Vários chinelos Crocs brancos empilhados no balcão da loja',
+  },
+  {
+    arquivo: 'bones-lacoste.jpg',
+    tipo: 'Boné',
+    titulo: 'Boné Lacoste',
+    preco: 'R$ 69,99',
+    alt: 'Quatro bonés Lacoste nas cores azul-claro, branco, azul-marinho e preto',
+  },
+  {
+    // TODO: falta o preço do óculos. Enquanto vazio, o card mostra "Consultar valor".
     arquivo: 'bone-oculos-camiseta.jpg',
+    tipo: 'Combo',
     titulo: 'Boné, óculos e camiseta',
+    preco: '',
     alt: 'Boné branco, óculos de sol prateado e camiseta preta com logo repetido',
   },
 ];
@@ -96,19 +135,27 @@ function renderizarDestaques() {
   if (!grid) return;
 
   grid.innerHTML = DESTAQUES.map((item, indice) => {
-    const mensagem = `Olá! Vi no site o destaque "${item.titulo}". Ainda tem disponível?`;
+    const preco = item.preco || 'Consultar valor';
+
+    // Sem preço definido, não adianta citar valor na conversa.
+    const mensagem = item.preco
+      ? `Olá! Vi no site: ${item.titulo} — ${item.preco}. Ainda tem disponível?`
+      : `Olá! Vi no site: ${item.titulo}. Qual o valor?`;
 
     // As duas primeiras carregam junto com a página; o resto só ao rolar até lá.
     const carregamento = indice < 2 ? 'eager' : 'lazy';
 
-    // Só a foto aparece. O título continua vivo no aria-label e na mensagem
-    // do WhatsApp — é o que diz à loja qual peça o cliente viu.
     return `
       <li class="destaque">
         <a class="destaque__link" href="${linkWhatsapp(mensagem)}" target="_blank" rel="noopener"
-           aria-label="Perguntar no WhatsApp sobre: ${item.titulo}">
+           aria-label="Perguntar no WhatsApp sobre ${item.titulo}, ${preco}">
           <img class="destaque__img" src="assets/images/destaques/${item.arquivo}"
                alt="${item.alt}" loading="${carregamento}" decoding="async">
+          <span class="destaque__info">
+            <span class="destaque__tipo">${item.tipo}</span>
+            <span class="destaque__titulo">${item.titulo}</span>
+            <span class="destaque__preco">${preco}</span>
+          </span>
         </a>
       </li>`;
   }).join('');

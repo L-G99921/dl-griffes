@@ -43,12 +43,36 @@ Nada de texto sobreposto na imagem.
 
 ### Destaques
 
-Vitrine solta, sem preço e sem controle de estoque — só mostra o que roda na loja. Tocar
-numa foto abre o WhatsApp com o nome do destaque já na mensagem.
+Vitrine com preço e sem controle de estoque. Não há carrinho: tocar numa foto abre o
+WhatsApp com a peça e o valor já escritos na mensagem, e a venda fecha por lá.
 
 Para trocar as fotos: joga o arquivo em `assets/images/destaques/` (nome minúsculo, sem
-espaço e sem acento) e ajusta o array `DESTAQUES` no topo de `scripts/main.js`. Cada item
-tem `arquivo`, `titulo` e `alt`. Formato ideal: retrato 3:4, ~900×1200, até 400 KB.
+espaço e sem acento) e ajusta o array `DESTAQUES` no topo de `scripts/main.js`. Formato
+ideal: retrato 3:4, ~900×1200, até 400 KB.
+
+Campos de cada item:
+
+| Campo | Para que serve |
+|---|---|
+| `arquivo` | Nome do arquivo dentro de `assets/images/destaques/` |
+| `tipo` | Etiqueta curta acima do título: Kit, Camiseta, Boné, Chinelo, Combo |
+| `titulo` | Aparece sobre a foto e entra na mensagem do WhatsApp |
+| `preco` | Texto livre. **Vazio mostra "Consultar valor"** e muda a mensagem para perguntar o preço |
+| `alt` | Descrição para leitor de tela e para quando a imagem não carrega |
+
+A ordem do array é a ordem na tela. Hoje: kits primeiro, depois camiseta avulsa, acessório
+por último — do ticket maior para o menor.
+
+### Tabela de preços em vigor
+
+| Item | Valor |
+|---|---|
+| Kit polo (polo + short) | R$ 220,00 |
+| Kit normal (camiseta + short) | R$ 199,99 |
+| Camiseta avulsa | R$ 99,99 |
+| Crocs | R$ 99,99 |
+| Boné Lacoste | R$ 69,99 |
+| Óculos | **a definir** |
 
 ## Já preenchido
 

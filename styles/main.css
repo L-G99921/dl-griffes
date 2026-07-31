@@ -345,6 +345,37 @@ address { font-style: normal; }
 }
 .destaque:hover .destaque__img { transform: scale(1.06); }
 
+/* Degradê por cima da foto para o texto branco ficar legível em qualquer imagem. */
+.destaque__info {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  gap: .2rem;
+  padding: 4rem 1.1rem 1.1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, .92) 20%, rgba(0, 0, 0, .5) 60%, transparent);
+}
+.destaque__tipo {
+  font-size: .64rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+.destaque__titulo {
+  font-size: .98rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff;
+}
+.destaque__preco {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: -.02em;
+  color: #fff;
+  margin-top: .25rem;
+}
+
 /* ---------- Localização ---------- */
 .split {
   display: grid;
